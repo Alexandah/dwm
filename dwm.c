@@ -2178,20 +2178,15 @@ centeredmaster(Monitor *m)
 		return;
 
 	/* initialize areas */
-	mw = m->ww;
-	mx = 0;
+	mw = m->nmaster ? m->ww * m->mfact : m->ww;
+	mx = (m->ww - mw) / 2;
 	my = 0;
-	tw = mw;
+	tw = (m->ww - mw) / 2;
 
 	if (n > m->nmaster) {
-		/* go mfact box in the center if more than nmaster clients */
-		mw = m->nmaster ? m->ww * m->mfact : 0;
-		tw = m->ww - mw;
-
-		if (n - m->nmaster > 1) {
-			/* only one client */
-			mx = (m->ww - mw) / 2;
-			tw = (m->ww - mw) / 2;
+		if (n - m->nmaster == 1) {
+			/* only one stack client — full side */
+			tw = m->ww - mw;
 		}
 	}
 
