@@ -446,7 +446,12 @@ arrange(Monitor *m)
 void
 arrangemon(Monitor *m)
 {
+	Client *c;
 	strncpy(m->ltsymbol, m->lt[m->sellt]->symbol, sizeof m->ltsymbol);
+	/* restore borders before layout (monocle sets them to 0) */
+	for (c = m->clients; c; c = c->next)
+		if (!c->isfullscreen)
+			c->bw = borderpx;
 	if (m->lt[m->sellt]->arrange)
 		m->lt[m->sellt]->arrange(m);
 }
@@ -1197,8 +1202,10 @@ monocle(Monitor *m)
 			n++;
 	if (n > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
-	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+	for (c = nexttiled(m->clients); c; c = nexttiled(c->next)) {
+		c->bw = 0;
+		resize(c, m->wx, m->wy, m->ww, m->wh, 0);
+	}
 }
 
 void
