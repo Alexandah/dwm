@@ -212,6 +212,7 @@ static void tile(Monitor *m);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void togglesticky(const Arg *arg);
+static void focusurgent(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -1766,6 +1767,27 @@ togglesticky(const Arg *arg)
 		return;
 	setsticky(selmon->sel, !selmon->sel->issticky);
 	arrange(selmon);
+}
+
+void
+focusurgent(const Arg *arg)
+{
+	Monitor *m;
+	Client *c;
+	int i;
+	for (m = mons; m; m = m->next) {
+		for (c = m->clients; c && !c->isurgent; c = c->next);
+		if (c) {
+			unfocus(selmon->sel, 0);
+			selmon = m;
+			for (i = 0; i < LENGTH(tags) && !((1 << i) & c->tags); i++);
+			if (i < LENGTH(tags)) {
+				const Arg a = {.ui = 1 << i};
+				view(&a);
+				focus(c);
+			}
+		}
+	}
 }
 
 void
