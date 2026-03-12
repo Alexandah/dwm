@@ -7,6 +7,9 @@ Requirements
 ------------
 In order to build dwm you need the Xlib header files.
 
+Updates
+------------
+To pull future suckless updates: git fetch upstream && git rebase upstream/master patched
 
 Installation
 ------------
