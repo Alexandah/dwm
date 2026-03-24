@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
-//options: AMD  HOME
+#define HOME 0
+#define AMD 1
 #define MACHINE HOME
 
 /* Helper macros for spawning commands */
