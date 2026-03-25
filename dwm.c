@@ -2174,7 +2174,7 @@ updatewmhints(Client *c)
 			XSetWMHints(dpy, c->win, wmh);
 		} else {
 			c->isurgent = (wmh->flags & XUrgencyHint) ? 1 : 0;
-			XSetWindowBorder(dpy, c->win, scheme[c->isurgent ? SchemeUrgent : SchemeNorm][ColBorder].pixel);
+			XSetWindowBorder(dpy, c->win, scheme[c == selmon->sel ? SchemeSel : (c->isurgent ? SchemeUrgent : SchemeNorm)][ColBorder].pixel);
 		}
 		if (wmh->flags & InputHint)
 			c->neverfocus = !wmh->input;

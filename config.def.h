@@ -19,10 +19,12 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char col_green[]       = "#00ff00";
+static const char col_red[]         = "#ff0000";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_green },
+	/*                 fg         bg         border   */
+	[SchemeNorm]   = { col_gray3, col_gray1, col_gray2 },
+	[SchemeSel]    = { col_gray4, col_cyan,  col_green },
+	[SchemeUrgent] = { col_gray3, col_gray1, col_red   },
 };
 
 /* tagging */
@@ -67,6 +69,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *claudecmd[] = { "st", "-e", "claude", NULL };
 
 #if MACHINE == AMD
 static const char *filebrowsercmd[]    = { "st", "-e", "ranger", "/home/aledavis/main/doc/todo", NULL };
@@ -79,6 +82,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = filebrowsercmd } },
 	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Prior,  spawn,          {.v = claudecmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
