@@ -1,0 +1,2 @@
+#!/bin/bash
+st bash -c 'read -e -p "TODO: " task_snippet; todo $task_snippet'

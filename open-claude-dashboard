@@ -1,0 +1,2 @@
+#!/bin/bash
+st bash -c "/home/$USER/main/todo/.infra/_view_claude_dash.do"

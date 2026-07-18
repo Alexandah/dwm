@@ -69,13 +69,14 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *todocmd[]  = { "todo-popup-dialog", NULL };
+static const char *claudecmd[] = { "claude_adhoc-popup-dialog", NULL };
+static const char *claudedashboardcmd[] = { "open-claude-dashboard", NULL };
 
 #if MACHINE == AMD
 static const char *filebrowsercmd[]    = { "st", "-e", "ranger", "/home/aledavis/main/doc/todo", NULL };
-static const char *claudecmd[] = { "st", "-e", "genie", NULL };
 #else
 static const char *filebrowsercmd[]    = { "st", "-e", "lf", "/home/erandalex/main/todo", NULL };
-static const char *claudecmd[] = { "st", "-e", "claude", NULL };
 #endif
 
 static const Key keys[] = {
@@ -84,6 +85,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = filebrowsercmd } },
 	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_Prior,  spawn,          {.v = claudecmd } },
+	{ MODKEY,                       XK_Next,   spawn,          {.v = claudedashboardcmd } },
+	{ MODKEY,                       XK_t,      spawn,          {.v = todocmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -94,7 +97,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[1]} },
+	//{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_v,      setlayout,      {.v = &layouts[0]} },

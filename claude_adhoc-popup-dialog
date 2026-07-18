@@ -1,0 +1,2 @@
+#!/bin/bash
+st bash -c 'read -e -p "Instructions for Claude: " instructions; /home/$USER/main/bin/claude_adhoc "$instructions"'
